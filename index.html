@@ -1,0 +1,93 @@
+
+<html>
+<body>
+    <p id="second"></p>
+    <p id="minute"></p>
+    <p id="hour"></p>
+    <p id="day"></p>
+    <p id="week"></p>
+    <p id="month"></p>
+    <p id="year"></p>
+    <p id="word"></p>
+</body>
+</html>
+
+<script type="text/javascript">
+    const from = (new Date("2021-10-10 14:00:00")).getTime();
+    const colors = ["#F7FCFF", "#14a25c", "#e80a03", "#3cc1bd", "#e7f4f4", "#f48424", "#13769c"];
+    const words = ["cacák", "házasok", "boldogok", "kilétkednek"];
+
+    const second = document.getElementById('second');
+    const minute = document.getElementById('minute');
+    const hour = document.getElementById('hour');
+    const day = document.getElementById('day');
+    const week = document.getElementById('week');
+    const month = document.getElementById('month');
+    const year = document.getElementById('year');
+
+    function refresh(time, value, name, fadeInterval) {
+        
+        if (value() > 0 || typeof (value()) === "string") {
+            time.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+            time.style.animation = `fade ${fadeInterval}s linear infinite`;
+            time.style.fontSize = `${Math.random() * 5 + 5}em`;
+            time.style.color = colors[Math.floor(Math.random() * colors.length)];
+            time.innerText = `${value()} ${name}`;
+            time.style.left = Math.floor(Math.random() * (window.innerWidth - time.clientWidth));
+            time.style.bottom = Math.floor(Math.random() * (window.innerHeight - time.clientHeight)) - time.clientHeight / 2;
+        }
+
+        window.setTimeout(function ()
+        {
+            refresh(time, value, name, fadeInterval);
+
+        }, fadeInterval * 1000);
+    };
+
+    const getTime = (divisor) => Math.floor(Math.abs(((new Date()).getTime() - from)) / divisor)
+
+    refresh(second, () => getTime(1000), "másodperce", 10);
+    refresh(word, () => words[Math.floor(Math.random() * words.length)], "", 10);
+    refresh(minute, () => getTime(1000 * 60), "perce", 9);
+    refresh(hour, () => getTime(1000 * 60 * 60), "órája", 8);
+    refresh(day, () => getTime(1000 * 60 * 60 * 24), "napja", 7);
+    refresh(week, () => getTime(1000 * 60 * 60 * 24 * 7), "hete", 7);
+    refresh(month, () => getTime(1000 * 60 * 60 * 24 * 30), "hónapja", 7);
+    refresh(year, () => getTime(1000 * 60 * 60 * 24 * 365), "éve", 7);
+
+</script>
+<style>
+    p {
+        -webkit-text-stroke: 0.02em #000015;
+        position: absolute;
+        font-size: 5em;
+        font-weight: bold;
+        font-family: Impact;
+        opacity: 0;
+    }
+
+    body {
+        background-image: url('hatter.bmp');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+        background-color: #F7FCFF;
+    }
+
+    @keyframes fade {
+        0% {
+            opacity: 0
+        }
+
+        50% {
+            opacity: 0.9
+        }
+
+        100% {
+            opacity: 0
+        }
+    }
+
+</style>
+
