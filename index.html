@@ -15,7 +15,7 @@
 <script type="text/javascript">
     const from = (new Date("2021-10-10 14:00:00")).getTime();
     const colors = ["#F7FCFF", "#14a25c", "#e80a03", "#3cc1bd", "#e7f4f4", "#f48424", "#13769c"];
-    const words = ["cacák", "házasok", "boldogok", "kilétkednek"];
+    const words = ["cacak", "hazasok", "boldogok"];
 
     const second = document.getElementById('second');
     const minute = document.getElementById('minute');
@@ -46,24 +46,24 @@
 
     const getTime = (divisor) => Math.floor(Math.abs(((new Date()).getTime() - from)) / divisor)
 
-    refresh(second, () => getTime(1000), "másodperce", 10);
+    refresh(second, () => getTime(1000), "masodperce", 10);
     refresh(word, () => words[Math.floor(Math.random() * words.length)], "", 10);
     refresh(minute, () => getTime(1000 * 60), "perce", 9);
-    refresh(hour, () => getTime(1000 * 60 * 60), "órája", 8);
+    refresh(hour, () => getTime(1000 * 60 * 60), "oraja", 8);
     refresh(day, () => getTime(1000 * 60 * 60 * 24), "napja", 7);
     refresh(week, () => getTime(1000 * 60 * 60 * 24 * 7), "hete", 7);
-    refresh(month, () => getTime(1000 * 60 * 60 * 24 * 30), "hónapja", 7);
-    refresh(year, () => getTime(1000 * 60 * 60 * 24 * 365), "éve", 7);
+    refresh(month, () => getTime(1000 * 60 * 60 * 24 * 30), "honapja", 7);
+    refresh(year, () => getTime(1000 * 60 * 60 * 24 * 365), "eve", 7);
 
 </script>
 <style>
+
     p {
         -webkit-text-stroke: 0.02em #000015;
         position: absolute;
         font-size: 5em;
         font-weight: bold;
         font-family: Impact;
-        opacity: 0;
     }
 
     body {
