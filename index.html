@@ -21,7 +21,7 @@
         words = ['hazasok'],
         fadeInterval = 7,
         jelszo = Date(),
-        getTime = divisor => Math.floor(Math.abs(((new Date()).getTime() - from)) / divisor),
+        getTime = divisor => (Math.abs(((new Date()).getTime() - from)) / divisor).toFixed(2),
         things = ['caca', 'majom', 'tapolcaiak', 'kutya', 'caca'],
         time =
         [
@@ -51,7 +51,7 @@
 
             if (jelszokerdojel === `${year}${month}${day}` + formatDate(Date())) {
                 grat = true
-                document.getElementById("password").placeholder = "? ? ?"
+                document.getElementById("password").placeholder = "m e ' g  k e ' n e  v a l a m I"
             }
 
             if (grat) {
@@ -91,7 +91,7 @@
         timeElementStyle.transform = `rotate(${Math.random() * 30 - 20}deg)`
         timeElementStyle.animation = `fade ${fadeInterval}s linear infinite`
         timeElementStyle.fontSize = `${Math.random() * 5 + 5}em`
-        timeElementStyle.left = Math.floor(Math.random() * (window.innerWidth - timeElement.clientWidth))
+        timeElementStyle.right = Math.floor(Math.random() * (window.innerWidth - timeElement.clientWidth)) - 50;
         timeElementStyle.bottom = Math.floor(Math.random() * (window.innerHeight - timeElement.clientHeight))
         timeElementStyle.opacity = 0.7
 
@@ -108,8 +108,8 @@
             timeElementStyle.transform = `rotate(${Math.random() * 30 - 20}deg)`
             timeElementStyle.animation = `fade ${fadeInterval}s linear infinite`
             timeElementStyle.fontSize = `${Math.random() * 5 + 5}em`
-            timeElementStyle.left = Math.floor(Math.random() * (window.innerWidth - timeElement.clientWidth))
-            timeElementStyle.bottom = Math.floor(Math.random() * (window.innerHeight - timeElement.clientHeight))
+            timeElementStyle.right = Math.floor(Math.random() * (window.innerWidth - timeElement.clientWidth) + 2 * timeElement.clientWidth)
+            timeElementStyle.bottom = Math.floor(Math.random() * (window.innerHeight - timeElement.clientHeight) - 2 * timeElement.clientHeight)
             timeElementStyle.opacity = 0.7;
 
             document.body.appendChild(timeElement)
@@ -164,7 +164,6 @@
         background-size: cover;
         background-position: center;
         background-color: #f7fcff;
-        overflow: hidden;
     }
 
     @keyframes fade {
