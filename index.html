@@ -1,4 +1,4 @@
-<head>
+﻿<head>
     <link rel="icon" type="image/x-icon" href="favicon.png">
 </head>
 <html>
@@ -51,6 +51,7 @@
             if (jelszokerdojel === `${year}${month}${day}` + formatDate(Date())) {
                 alert('grat')
                 grat = true
+                document.getElementById("password").placeholder = "? ? ?"
             }
 
             if (grat) {
