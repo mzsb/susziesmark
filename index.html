@@ -15,23 +15,23 @@
         month = 10
         year = 2022
         from = (new Date(`${year}-${month}-${day} 16:30:00`)).getTime(),
-        colors = ['purple', 'green', 'orange'],
+            colors = ['purple', 'green', 'orange', 'white'],
         notColors = ['white', 'black', 'gray'],
         fonts = ['Impact', 'Comic Sans MS', 'Calibri', 'Consolas', 'Courier New'],
         words = ['hazasok'],
-        fadeInterval = 7,
+        fadeInterval = 5,
         jelszo = Date(),
         getTime = divisor => (Math.abs(((new Date()).getTime() - from)) / divisor).toFixed(2),
         things = ['caca', 'majom', 'tapolcaiak', 'kutya', 'caca'],
         time =
         [
-            [1000, ['mperc', 'gomboc']],
-            [1000 * 60, ['perc', 'ido']],
-            [1000 * 60 * 60, ['ora', 'szam']],
-            [1000 * 60 * 60 * 24, ['nap', Next(things)]],
-            [1000 * 60 * 60 * 24 * 7, ['het', 'kaposzta']],
-            [1000 * 60 * 60 * 24 * 30, ['ho', 'szesz']],
-            [1000 * 60 * 60 * 24 * 365, ['ev', 'harom']]
+            [1000, ['mperce', 'gomboc']],
+            [1000 * 60, ['perce', 'ido']],
+            [1000 * 60 * 60, ['oraja', 'szam']],
+            [1000 * 60 * 60 * 24, ['napja', Next(things)]],
+            [1000 * 60 * 60 * 24 * 7, ['hete', 'kaposzta']],
+            [1000 * 60 * 60 * 24 * 30, ['honapja', 'szesz']],
+            [1000 * 60 * 60 * 24 * 365, ['eve', 'harom']]
         ]
 
     var jelszokerdojel,
@@ -81,17 +81,17 @@
     }
 
     function show(getValue, fadeInterval) {
-        let timeElement = document.createElement("p")
+        let timeElement = document.createElement('p')
         let timeElementStyle = timeElement.style
 
         let value = getValue();
         timeElement.innerText = grat ? `${value[0]} ${nowGrat ? value[1][0] : value[1][1]}` : value[0]
         timeElementStyle.color = `${grat ? Next(colors) : Next(notColors)}`
-        timeElementStyle.fontFamily = grat ? 'Impact' : Next(fonts)
+        timeElementStyle.fontFamily = nowGrat ? 'Impact' : Next(fonts)
         timeElementStyle.transform = `rotate(${Math.random() * 30 - 20}deg)`
         timeElementStyle.animation = `fade ${fadeInterval}s linear infinite`
         timeElementStyle.fontSize = `${Math.random() * 5 + 5}em`
-        timeElementStyle.right = Math.floor(Math.random() * (window.innerWidth - timeElement.clientWidth)) - 50;
+        timeElementStyle.right = Math.floor(Math.random() * (window.innerWidth - 2 * timeElement.clientWidth));
         timeElementStyle.bottom = Math.floor(Math.random() * (window.innerHeight - timeElement.clientHeight))
         timeElementStyle.opacity = 0.7
 
@@ -99,12 +99,30 @@
         window.setTimeout(_ => document.body.removeChild(timeElement), fadeInterval * 1000)
 
         if (!grat) {
-            let timeElement = document.createElement("p")
+            let timeElement = document.createElement('p')
             timeElementStyle = timeElement.style
 
             timeElement.innerText = value[1][1]
             timeElementStyle.color = `${grat ? Next(colors) : Next(notColors)}`
-            timeElementStyle.fontFamily = grat ? 'Impact' : Next(fonts)
+            timeElementStyle.fontFamily = Next(fonts)
+            timeElementStyle.transform = `rotate(${Math.random() * 30 - 20}deg)`
+            timeElementStyle.animation = `fade ${fadeInterval}s linear infinite`
+            timeElementStyle.fontSize = `${Math.random() * 5 + 5}em`
+            timeElementStyle.right = Math.floor(Math.random() * (window.innerWidth - timeElement.clientWidth) + 2 * timeElement.clientWidth)
+            timeElementStyle.bottom = Math.floor(Math.random() * (window.innerHeight - timeElement.clientHeight) - 2 * timeElement.clientHeight)
+            timeElementStyle.opacity = 0.7;
+
+            document.body.appendChild(timeElement)
+            window.setTimeout(_ => document.body.removeChild(timeElement), fadeInterval * 1000)
+        }
+
+        if (nowGrat) {
+            let timeElement = document.createElement('p')
+            timeElementStyle = timeElement.style
+
+            timeElement.innerText = "hazasok"
+            timeElementStyle.color = `${grat ? Next(colors) : Next(notColors)}`
+            timeElementStyle.fontFamily = 'Impact'
             timeElementStyle.transform = `rotate(${Math.random() * 30 - 20}deg)`
             timeElementStyle.animation = `fade ${fadeInterval}s linear infinite`
             timeElementStyle.fontSize = `${Math.random() * 5 + 5}em`
