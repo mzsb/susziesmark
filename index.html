@@ -1,65 +1,159 @@
-<body>
-    <p id="second"></p>
-    <p id="minute"></p>
-    <p id="hour"></p>
-    <p id="day"></p>
-    <p id="week"></p>
-    <p id="month"></p>
-    <p id="year"></p>
-    <p id="word"></p>
-</body>
+<head>
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+</head>
+<html>
+    <body style='display: flex; justify-content:center; align-items: end;'>
+        <input id='password' type='text' size='50' placeholder="t a l a ' l j  k I" onkeydown='search(this)' oninput='onInput(this)' />
+    </body>
+
+</html>
 
 <script type="text/javascript">
-    const from = (new Date("2022-10-22 16:30:00")).getTime();
-    const colors = ["#f7fcff", "#14a25c", "#e80a03", "#3cc1bd", "#e7f4f4", "#f48424", "#13769c"];
-    const words = ["hazasok"];
+    const
+        day = 22,
+        month = 10
+        year = 2022
+        from = (new Date(`${year}-${month}-${day} 16:30:00`)).getTime(),
+        colors = ['purple', 'green', 'orange'],
+        notColors = ['white', 'black', 'gray'],
+        fonts = ['Impact', 'Comic Sans MS', 'Calibri', 'Consolas', 'Courier New'],
+        words = ['hazasok'],
+        fadeInterval = 7,
+        jelszo = Date(),
+        getTime = divisor => Math.floor(Math.abs(((new Date()).getTime() - from)) / divisor),
+        numbers = ['caca', 'majom', 'tapolcaiak', 'kutya', 'caca'],
+        time =
+        [
+            [1000, ['mperc', `* ${(Math.random() * Math.E).toPrecision(2)}`]],
+            [1000 * 60, ['perc', 'ido']],
+            [1000 * 60 * 60, ['ora', 'szam']],
+            [1000 * 60 * 60 * 24, ['nap', Next(numbers)]],
+            [1000 * 60 * 60 * 24 * 7, ['het', 'nap']],
+            [1000 * 60 * 60 * 24 * 30, ['ho', 'szesz']],
+            [1000 * 60 * 60 * 24 * 365, ['ev', 'dolog']]
+        ]
 
-    const second = document.getElementById('second');
-    const minute = document.getElementById('minute');
-    const hour = document.getElementById('hour');
-    const day = document.getElementById('day');
-    const week = document.getElementById('week');
-    const month = document.getElementById('month');
-    const year = document.getElementById('year');
+    var jelszokerdojel,
+        grat = false,
+        nowGrat = false
 
-    function show(time, value, name, fadeInterval) {
-        window.setTimeout(function ()
-        {
-            if (value() > 0 || typeof (value()) === "string") {
-                time.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
-                time.style.animation = `fade ${fadeInterval}s linear infinite`;
-                time.style.fontSize = `${Math.random() * 5 + 5}em`;
-                time.style.color = colors[Math.floor(Math.random() * colors.length)];
-                time.innerText = `${value()} ${name}`;
-                time.style.left = Math.floor(Math.random() * (window.innerWidth - time.clientWidth));
-                time.style.bottom = Math.floor(Math.random() * (window.innerHeight - time.clientHeight)) - time.clientHeight / 2;
+    function onInput(input) {
+        jelszokerdojel = input.value
+    }
+
+    function palindrom(str) {
+        return str == str.split('').reverse().join('');
+    }
+
+    function search(input) {
+        if (event.key === 'Enter') {
+
+            if (jelszokerdojel === `${year}${month}${day}` + formatDate(Date())) {
+                alert('grat')
+                grat = true
             }
 
-            show(time, value, name, fadeInterval);
+            if (grat) {
+                if (palindrom(jelszokerdojel)) {
+                    nowGrat = true;
+                    document.body.style.backdropFilter = 'none'
+                    document.body.removeChild(document.getElementById('password'))
+                }
+            }
 
-        }, fadeInterval * 1000);
-    };
+            jelszokerdojel = "";
+            input.value = "";
+        }
+    }
 
-    const getTime = (divisor) => Math.floor(Math.abs(((new Date()).getTime() - from)) / divisor)
+    /*public async Task<*/function/*>*/ Next(items)
+    {
+        return items[Math.floor(Math.random() * items.length)];
+    }
 
-    show(second, () => getTime(1000), "masodperce", 10);
-    show(word, () => words[Math.floor(Math.random() * words.length)], "", 10);
-    show(minute, () => getTime(1000 * 60), "perce", 9);
-    show(hour, () => getTime(1000 * 60 * 60), "oraja", 8);
-    show(day, () => getTime(1000 * 60 * 60 * 24), "napja", 7);
-    show(week, () => getTime(1000 * 60 * 60 * 24 * 7), "hete", 7);
-    show(month, () => getTime(1000 * 60 * 60 * 24 * 30), "honapja", 7);
-    show(year, () => getTime(1000 * 60 * 60 * 24 * 365), "eve", 7);
+    for (let i = 0; i < time.length; i++) {
+        window.setTimeout(_ => telefonfulke(() => [getTime(time[i][0]), time[i][1] ], fadeInterval), i * 1000)
+    }
+
+    var telefonfulke = (getValue, fadeInterval) => {
+        setInterval(_ => { show(getValue, fadeInterval) }, fadeInterval * 1000)
+    }
+
+    function show(getValue, fadeInterval) {
+        let timeElement = document.createElement("p")
+        let timeElementStyle = timeElement.style
+
+        let value = getValue();
+        timeElement.innerText = grat ? `${value[0]} ${nowGrat ? value[1][0] : value[1][1]}` : value[0]
+        timeElementStyle.color = `${grat ? Next(colors) : Next(notColors)}`
+        timeElementStyle.fontFamily = grat ? 'Impact' : Next(fonts)
+        timeElementStyle.transform = `rotate(${Math.random() * 30 - 20}deg)`
+        timeElementStyle.animation = `fade ${fadeInterval}s linear infinite`
+        timeElementStyle.fontSize = `${Math.random() * 5 + 5}em`
+        timeElementStyle.left = Math.floor(Math.random() * (window.innerWidth - timeElement.clientWidth))
+        timeElementStyle.bottom = Math.floor(Math.random() * (window.innerHeight - timeElement.clientHeight))
+        timeElementStyle.opacity = 0.7
+
+        document.body.appendChild(timeElement)
+        window.setTimeout(_ => document.body.removeChild(timeElement), fadeInterval * 1000)
+
+        if (!grat) {
+            let timeElement = document.createElement("p")
+            timeElementStyle = timeElement.style
+
+            timeElement.innerText = value[1][1]
+            timeElementStyle.color = `${grat ? Next(colors) : Next(notColors)}`
+            timeElementStyle.fontFamily = grat ? 'Impact' : Next(fonts)
+            timeElementStyle.transform = `rotate(${Math.random() * 30 - 20}deg)`
+            timeElementStyle.animation = `fade ${fadeInterval}s linear infinite`
+            timeElementStyle.fontSize = `${Math.random() * 5 + 5}em`
+            timeElementStyle.left = Math.floor(Math.random() * (window.innerWidth - timeElement.clientWidth))
+            timeElementStyle.bottom = Math.floor(Math.random() * (window.innerHeight - timeElement.clientHeight))
+            timeElementStyle.opacity = 0.7;
+
+            document.body.appendChild(timeElement)
+            window.setTimeout(_ => document.body.removeChild(timeElement), fadeInterval * 1000)
+        }
+
+    }
+
+    // Thanks user3470953 https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd <3 <3
+    function formatDate(date) {
+        var d = new Date(date),
+            minute = '' + d.getMinutes()
+            hour = '' + d.getHours()
+
+        if (minute.length < 2)
+            minute = '0' + minute;
+
+        if (hour.length < 2)
+            hour = '0' + hour;
+
+        return `${hour}${minute}`;
+    }
 
 </script>
 
 <style>
+    #password {
+        margin-bottom: 20px;
+        line-height: 3em;
+        background: black;
+        color: transparent;
+        text-align: center;
+        font-family: 'Courier New';
+        font-weight: bolder;
+        font-size: 2em;
+    }
+
+    ::selection {
+        background-color: black;
+    }
+
     p {
-        -webkit-text-stroke: 0.02em #000015;
         position: absolute;
         font-size: 5em;
         font-weight: bold;
-        font-family: Impact;
     }
 
     body {
@@ -68,7 +162,9 @@
         background-attachment: fixed;
         background-size: cover;
         background-position: center;
-        background-color: #F7FCFF;
+        background-color: #f7fcff;
+        overflow: hidden;
+        backdrop-filter: sepia();
     }
 
     @keyframes fade {
@@ -77,7 +173,7 @@
         }
 
         50% {
-            opacity: 0.9
+            opacity: 1
         }
 
         100% {
