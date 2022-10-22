@@ -3,7 +3,7 @@
 </head>
 <html>
     <body style='display: flex; justify-content:center; align-items: end;'>
-        <input id='password' type='text' size='50' placeholder="t a l a ' l j  k I" onkeydown='search(this)' oninput='onInput(this)' />
+        <input id='password' type='text' size='50' placeholder="t a l a ' l j  k I" title="Hmm" onkeydown='search(this)' oninput='onInput(this)' />
     </body>
 
 </html>
@@ -21,16 +21,16 @@
         fadeInterval = 7,
         jelszo = Date(),
         getTime = divisor => Math.floor(Math.abs(((new Date()).getTime() - from)) / divisor),
-        numbers = ['caca', 'majom', 'tapolcaiak', 'kutya', 'caca'],
+        things = ['caca', 'majom', 'tapolcaiak', 'kutya', 'caca'],
         time =
         [
-            [1000, ['mperc', `* ${(Math.random() * Math.E).toPrecision(2)}`]],
+            [1000, ['mperc', 'gomboc']],
             [1000 * 60, ['perc', 'ido']],
             [1000 * 60 * 60, ['ora', 'szam']],
-            [1000 * 60 * 60 * 24, ['nap', Next(numbers)]],
-            [1000 * 60 * 60 * 24 * 7, ['het', 'nap']],
+            [1000 * 60 * 60 * 24, ['nap', Next(things)]],
+            [1000 * 60 * 60 * 24 * 7, ['het', 'kaposzta']],
             [1000 * 60 * 60 * 24 * 30, ['ho', 'szesz']],
-            [1000 * 60 * 60 * 24 * 365, ['ev', 'dolog']]
+            [1000 * 60 * 60 * 24 * 365, ['ev', 'harom']]
         ]
 
     var jelszokerdojel,
@@ -49,7 +49,6 @@
         if (event.key === 'Enter') {
 
             if (jelszokerdojel === `${year}${month}${day}` + formatDate(Date())) {
-                alert('grat')
                 grat = true
                 document.getElementById("password").placeholder = "? ? ?"
             }
@@ -57,7 +56,7 @@
             if (grat) {
                 if (palindrom(jelszokerdojel)) {
                     nowGrat = true;
-                    document.body.style.backdropFilter = 'none'
+                    document.body.style.backgroundImage = 'url(background.bmp)'
                     document.body.removeChild(document.getElementById('password'))
                 }
             }
@@ -158,14 +157,13 @@
     }
 
     body {
-        background-image: url('hatter.bmp');
+        background-image: url('sepia_background.bmp');
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
         background-position: center;
         background-color: #f7fcff;
         overflow: hidden;
-        backdrop-filter: sepia();
     }
 
     @keyframes fade {
