@@ -9,7 +9,15 @@
 </html>
 
 <script>
-    document.title = "Meglepi";
+    document.title = 'Suszi & Márk'
+
+    console.log('Barnuska bír titeket azért csinálta ezt a cuccot szóval legyetek együtt hogy maradjon értelme köszi!')
+
+    if (window.location.href?.includes('?')) {
+        setGrat()
+        setNowGrat()
+    }
+
     const
         day = 22,
         month = 10
@@ -49,22 +57,30 @@
     function search(input) {
         if (event.key === 'Enter') {
 
-            if (jelszokerdojel === `${year}${month}${day}` + formatDate(Date())) {
-                grat = true
-                document.getElementById("password").placeholder = "m e ' g  k e ' n e  v a l a m I"
+            if (!grat && jelszokerdojel === `${year}${month}${day}` + formatDate(Date())) {
+                setGrat()
             }
 
             if (grat) {
                 if (palindrom(jelszokerdojel)) {
-                    nowGrat = true;
-                    document.body.style.backgroundImage = 'url(background.bmp)'
-                    document.body.removeChild(document.getElementById('password'))
+                    setNowGrat();
                 }
             }
 
-            jelszokerdojel = "";
-            input.value = "";
+            jelszokerdojel = '';
+            input.value = '';
         }
+    }
+
+    function setGrat() {
+        grat = true
+        document.getElementById('password').placeholder = `m e ' g  k e ' n e  v a l a m I`
+    }
+
+    function setNowGrat() {
+        nowGrat = true;
+        document.body.style.backgroundImage = 'url(background.bmp)'
+        document.body.removeChild(document.getElementById('password'))
     }
 
     /*public async Task<*/function/*>*/ Next(items)
@@ -120,7 +136,7 @@
             let timeElement = document.createElement('p')
             timeElementStyle = timeElement.style
 
-            timeElement.innerText = "hazasok"
+            timeElement.innerText = 'hazasok'
             timeElementStyle.color = `${grat ? Next(colors) : Next(notColors)}`
             timeElementStyle.fontFamily = 'Impact'
             timeElementStyle.transform = `rotate(${Math.random() * 30 - 20}deg)`
