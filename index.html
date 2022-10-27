@@ -13,11 +13,6 @@
 
     console.log('Barnuska bír titeket azért csinálta ezt a cuccot szóval legyetek együtt hogy maradjon értelme köszi!')
 
-    if (window.location.href?.includes('?')) {
-        setGrat()
-        setNowGrat()
-    }
-
     const
         day = 22,
         month = 10
@@ -45,6 +40,11 @@
     var jelszokerdojel,
         grat = false,
         nowGrat = false
+
+    if (window.location.href?.includes('?')) {
+        setGrat()
+        setNowGrat()
+    }
 
     function onInput(input) {
         jelszokerdojel = input.value
